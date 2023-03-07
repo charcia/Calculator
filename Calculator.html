@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+    <head>
+        <title>Calculator</title>
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+
+    </body>
+
+    <script>
+
+        function Reset(){
+            var Numbers=[];
+            Listen;
+        }
+        function add(Numbers){
+            var sum=Numbers[0]+Numbers[1];
+            return sum;
+        }
+
+        function subtract(Numbers){
+            var sub=Numbers[0]-Numbers[1];
+            return sub;
+        }
+
+        function mutltiply(Numbers){
+            var product=Numbers[0]*Numbers[1];
+            return product;
+        }
+
+        function divide(Numbers){
+            var quotient=Numbers[0]/Numbers[1];
+            return quotient;
+        }
+
+        function NumList(a){
+            let input=a;
+            Numbers.push(input);
+           if (input!='+'|| input!='-'||input!='*'||input!='/'){
+            Listen();
+           } else if(input=='+'){
+            add();
+           }else if(input=='-'){
+            subtract();
+           }else if(input=='*'){
+            mutltiply();
+           }else if(input=='/'){
+            divide();
+           }
+
+        }
+
+        function Listen(){
+            while (Numbers.length<2){
+                var element1=document.getElementById('button1');
+                element1.addEventListener('click',NumList(1));
+                var element2=document.getElementById('button2');
+                element2.addEventListener('click',NumList(2));
+                var element3=document.getElementById('button3');
+                element3.addEventListener('click',NumList(3));
+                var element4=document.getElementById('button4');
+                element4.addEventListener('click',NumList(4));
+                var element5=document.getElementById('button5');
+                element5.addEventListener('click',NumList(5));
+                var element6=document.getElementById('button6');
+                element6.addEventListener('click',NumList(6));
+                var element7=document.getElementById('button7');
+                element7.addEventListener('click',NumList(7));
+                var element8=document.getElementById('button8');
+                element8.addEventListener('click',NumList(8));
+                var element9=document.getElementById('button9');
+                element9.addEventListener('click',NumList(9));
+                var element0=document.getElementById('button0');
+                element0.addEventListener('click',NumList(0));
+                document.getElementById('add').addEventListener('click',NumList('+'));
+                document.getElementById('subtract').addEventListener('click',NumList('-'));
+                document.getElementById('multiply').addEventListener('click',NumList('*'));
+                document.getElementById('Add').addEventListener('click',NumList('/')); 
+            }
+
+        }
+
+        window.addEventListener('load',Reset);
+
+    </script>
+
+</html>
