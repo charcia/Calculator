@@ -8,114 +8,182 @@
     </head>
 
     <body>
-        <div class="container">
-            <div 
-        </div>
+        <div><button id="button7">7</button>
+        <button id="button8">8</button>
+        <button id="button9">9</button></div>
+
+        <div><button id="button4">4</button>
+        <button id="button5">5</button>
+        <button id="button6">6</button></div>
+
+        <button id="button1">1</button>
+        <button id="button2">2</button>
+        <button id="button3">3</button></div>
+
+        <div><button id="button0">0</button>
+        <button id='backspace'>&#8592</button></div>
+        <button id="add">+</button>
+        <button id="subtract">-</button>
+        <button id="multiply">x</button>
+        <button id="divide">/</button>
+        <button id="equal">=</button>
+        <button id='clear'>clear</button></div>
+
+        <div class=container><p id="display"></p></div>
 
     </body>
 
     <script>
+        var Numbers=[];
+        var Result=[];
+        var logic=[];
 
         function Reset(){
             var Numbers=[];
-            var Operators=[];
             var logic=[];
-            Listen;
+            var Result=[];
         }
 
-        function operate(){
-            if (Operators[0]=='+'){
-                add();
+        function operate(oper){
+            if (oper==='+'){
+                sum=add(Numbers[0],Numbers[2]);
+                sum=(Math.round(sum * 100)/100).toFixed(2);
+                return sum;
             };
-            if (Operators[0]=='-'){
-                subtract();
+            if (oper==='-'){
+                sub=subtract(Numbers[0],Numbers[2]);
+                sub=(Math.round(sub * 100)/100).toFixed(2);
+                return sub;
             };
-            if (Operators[0]=='*'){
-                multiply();
+            if (oper==='x'){
+                product=multiply(Numbers[0],Numbers[2]);
+                product=(Math.round(product * 100)/100).toFixed(2);
+                return product;
             };
-            if (Operators[0]=='/'){
-                divide();
+            if (oper==='/'){
+                if (Numbers[2]==0){
+                    quotient='You silly goose...'
+                } else{
+                    quotient=divide(Numbers[0],Numbers[2]);
+                    quotient=(Math.round(quotient * 100)/100).toFixed(2);
+                }
+                return quotient;
+            };
+            if(oper==='='){
+                sum=add(Numbers[0],Numbers[2]);
+                sum=(Math.round(sum * 100)/100).toFixed(2);
+                return sum;
             };
         }
 
-        function add(){
-            var sum=Numbers[0]+Numbers[1];
+        function add(a,b){
+            let num1=a*1;
+            let num2=b*1;
+            let sum=num1+num2;
             return sum;
-            listen();
         }
 
-        function subtract(){
-            var sub=Numbers[0]-Numbers[1];
+        function subtract(a,b){
+            let num1=a*1;
+            let num2=b*1;
+            let sub=num1-num2;
             return sub;
-            listen();
         }
 
-        function multiply(){
-            var product=Numbers[0]*Numbers[1];
+        function multiply(a,b){
+            var num1=a*1;
+            var num2=b*1;
+            let product=num1*num2;
             return product;
-            listen();
         }
 
-        function divide(){
-            var quotient=Numbers[0]/Numbers[1];
+        function divide(a,b){
+            let num1=a*1;
+            let num2=b*1;
+            let quotient=num1/num2;
             return quotient;
-            listen();
+        }
+
+        function clear(){
+            var Numbers=[];
+            var Result=[];
+            var logic=[];
+            document.getElementById('display').innerHTML=0;
         }
 
         function LogicOp(a){
-            var input=a;
-            logic.push(input);
-           if (input!='+'|| input!='-'||input!='*'||input!='/'){
-                Listen();
-           } else if (input=='+'|| input=='-'||input=='*'||input=='/'){
-                Operators.push(input);
-                logic.pop();
-                let temporaryNumber=logic.join();
-                Numbers.push(temporaryNumber);
+            var currentResult=0;
+            if (a==='+'||a==='-'||a==='x'||a==='/'){
+                document.getElementById('display').innerHTML=a;
+                Numbers.push(logic.join(''));
+                Numbers.push(a);
                 logic=[];
-                listen();
-           } else if(input=='='){
+            };
+            if (typeof a==='number'){
+                logic.push(a);
+                var num=logic.join('');
+                document.getElementById('display').innerHTML=num;
+            };
+            if (Numbers.length==4){
+                currentResult=operate(Numbers[1]);
+                Numbers=[];
+                Numbers.push(currentResult);
+                Numbers.push(a);
+            };
+            if (a==='='){
+                Numbers.push(logic.join(''));
+                Numbers.push(a);
+                currentResult=operate(Numbers[1]);
+                document.getElementById('display').innerHTML=currentResult;
+                Numbers=[];
+                logic=[];
+                logic.push(currentResult);
+            };
+            if (a==='`'){
+                Numbers=[];
+                logic=[];
+                document.getElementById('display').innerHTML=0;
+            }
+            if (a==='!'){
                 logic.pop();
-                let temporaryNumber=logic.join();
-                Numbers.push(temporaryNumber);
-                operate();
-           }
-          
+                var num=logic.join('');
+                document.getElementById('display').innerHTML=num;
+            };
 
         }
 
         function Listen(){
-            while (Numbers.length<2){
-                var element1=document.getElementById('button1');
-                element1.addEventListener('click',LogicOp(1));
-                var element2=document.getElementById('button2');
-                element2.addEventListener('click',LogicOp(2));
-                var element3=document.getElementById('button3');
-                element3.addEventListener('click',LogicOp(3));
-                var element4=document.getElementById('button4');
-                element4.addEventListener('click',LogicOp(4));
-                var element5=document.getElementById('button5');
-                element5.addEventListener('click',LogicOp(5));
-                var element6=document.getElementById('button6');
-                element6.addEventListener('click',LogicOp(6));
-                var element7=document.getElementById('button7');
-                element7.addEventListener('click',LogicOp(7));
-                var element8=document.getElementById('button8');
-                element8.addEventListener('click',LogicOp(8));
-                var element9=document.getElementById('button9');
-                element9.addEventListener('click',LogicOp(9));
-                var element0=document.getElementById('button0');
-                element0.addEventListener('click',LogicOp(0));
-                document.getElementById('add').addEventListener('click',LogicOp('+'));
-                document.getElementById('subtract').addEventListener('click',LogicOp('-'));
-                document.getElementById('multiply').addEventListener('click',LogicOp('*'));
-                document.getElementById('Add').addEventListener('click',LogicOp('/')); 
-                document.getElementById('equal').addEventListener('click',LogicOp('='));
-            }
-
+            alert('Listening');
+            var element1=document.getElementById('button1');
+            element1.addEventListener('click',function (){LogicOp(1);});
+            var element2=document.getElementById('button2');
+            element2.addEventListener('click',function (){LogicOp(2);});
+            var element3=document.getElementById('button3');
+            element3.addEventListener('click',function (){LogicOp(3);});
+            var element4=document.getElementById('button4');
+            element4.addEventListener('click',function (){LogicOp(4);});
+            var element5=document.getElementById('button5');
+            element5.addEventListener('click',function (){LogicOp(5);});
+            var element6=document.getElementById('button6');
+            element6.addEventListener('click',function (){LogicOp(6);});
+            var element7=document.getElementById('button7');
+            element7.addEventListener('click',function (){LogicOp(7);});
+            var element8=document.getElementById('button8');
+            element8.addEventListener('click',function (){LogicOp(8);});
+            var element9=document.getElementById('button9');
+            element9.addEventListener('click',function (){LogicOp(9);});
+            var element0=document.getElementById('button0');
+            element0.addEventListener('click',function (){LogicOp(0);});
+            document.getElementById('add').addEventListener('click',function (){LogicOp('+');});
+            document.getElementById('subtract').addEventListener('click',function (){LogicOp('-');});
+            document.getElementById('multiply').addEventListener('click',function (){LogicOp('x');});
+            document.getElementById('divide').addEventListener('click',function (){LogicOp('/');}); 
+            document.getElementById('equal').addEventListener('click',function (){LogicOp('=');});
+            document.getElementById('clear').addEventListener('click',function (){LogicOp('`')});
+            document.getElementById('backspace').addEventListener('click',function (){LogicOp('!')});
         }
 
-        window.addEventListener('load',Reset);
+        window.addEventListener('load',Listen);
 
     </script>
 
